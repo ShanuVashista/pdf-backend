@@ -2,7 +2,7 @@ import PdfSchema from "../../db/models/pdf.model";
 import SharedFileSchema from "../../db/models/sharedFile.model";
 import { Response } from "express";
 import StatusCodes from "http-status-codes";
-import fs from "fs";
+// import fs from "fs";
 
 export interface IPdf {
   owner: string;
@@ -83,7 +83,7 @@ const UpdatePdfFile = async (req, res: Response) => {
       isdeleted: false,
     }).populate("owner");
 
-    const file = JSON.parse(JSON.stringify(fileData));
+    // const file = JSON.parse(JSON.stringify(fileData));
 
     if (!fileData) {
       return res.status(400).json({
