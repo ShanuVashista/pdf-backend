@@ -1,6 +1,6 @@
-import { StatusCodes } from "http-status-codes";
+// import { StatusCodes } from "http-status-codes";
 import jwt, { JwtPayload } from "jsonwebtoken";
-import User from "../db/models/user";
+import User from "../modal/user";
 
 export default async function auth(req, res, next) {
   try {
@@ -17,7 +17,7 @@ export default async function auth(req, res, next) {
     });
 
     if (!user) {
-      return res.status(StatusCodes.UNAUTHORIZED).json({
+      return res.status(401).json({
         status: false,
         type: "error",
         message: "User not found",
@@ -28,20 +28,20 @@ export default async function auth(req, res, next) {
     next();
   } catch (error) {
     if (error.message == "invalid signature") {
-      return res.status(StatusCodes.UNAUTHORIZED).json({
+      return res.status(401).json({
         status: false,
         type: "error",
         message: "Invalid token",
       });
     } else {
       if (error.message == "jwt malformed") {
-        return res.status(StatusCodes.UNAUTHORIZED).json({
+        return res.status(401).json({
           status: false,
           type: "error",
           message: "Token is not valid",
         });
       } else {
-        return res.status(StatusCodes.UNAUTHORIZED).json({
+        return res.status(401).json({
           status: false,
           type: "error",
           message: error.message,

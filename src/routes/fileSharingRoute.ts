@@ -1,5 +1,5 @@
 import express from "express";
-import controller from "../controllers/file_sharing/fileSharingController";
+import controller from "../controller/file_sharing/fileSharingController";
 import auth from "../middlewares/auth.middleware";
 
 const router = express.Router();

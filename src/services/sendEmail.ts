@@ -11,13 +11,6 @@ const sendEmail = async (email, subject, text = "", html = "") => {
         pass: process.env.ZOHO_PASS,
       },
     });
-    // const transporter = nodemailer.createTransport({
-    //     service:"hotmail",
-    //     auth:{
-    //         user: "telemdbackend@outlook.com",
-    //         pass: "Developer@123"
-    //     }
-    // });
 
     const options = {
       from: process.env.ZOHO_MAIL,

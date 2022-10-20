@@ -1,15 +1,10 @@
 import express from "express";
-import controller from "../controllers/pdf/pdfController";
+import controller from "../controller/pdf/pdfController";
 import auth from "../middlewares/auth.middleware";
 import multer from "multer";
 import { ensureDir } from "fs-extra";
-import path from "path";
-
-// const storage = multer.memoryStorage();
-// const upload = multer({ storage });
 
 const storage = multer.diskStorage({
-  //multers disk storage settings
   destination: async function (req, file, cb) {
     await ensureDir("./public/pdf/");
     cb(null, "./public/pdf/");
