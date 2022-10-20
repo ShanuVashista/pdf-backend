@@ -17,14 +17,7 @@ const storage = multer.diskStorage({
 
   filename: function (req, file, cb) {
     const datetimestamp = Date.now();
-    cb(
-      null,
-      file.fieldname +
-        "-" +
-        datetimestamp +
-        "." +
-        file.originalname.split(".")[file.originalname.split(".").length - 1]
-    );
+    cb(null, file.fieldname + "-" + datetimestamp + ".pdf");
   },
 });
 

@@ -105,8 +105,8 @@ const UpdatePdfFile = async (req, res: Response) => {
     const requestData = {
       file_url: file_url,
       docname: req.body.docname,
-      filename: req.file.filename,
-      filetype: req.file.mimetype,
+      // filename: req.file.filename,
+      // filetype: req.file.mimetype,
       filesize: req.file.size,
       is_editable: false,
       isupdated: true,
