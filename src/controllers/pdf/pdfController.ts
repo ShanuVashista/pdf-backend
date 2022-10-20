@@ -93,14 +93,14 @@ const UpdatePdfFile = async (req, res: Response) => {
       });
     }
 
-    if (fileData.is_editable !== true) {
-      return res.status(400).json({
-        type: "error",
-        status: 400,
-        message: `${file.owner.fullname} is already edit this pdf if you want to edit now please contact with ${file.owner.fullname}`,
-        editable: fileData.is_editable,
-      });
-    }
+    // if (fileData.is_editable !== true) {
+    //   return res.status(400).json({
+    //     type: "error",
+    //     status: 400,
+    //     message: `${file.owner.fullname} is already edit this pdf if you want to edit now please contact with ${file.owner.fullname}`,
+    //     editable: fileData.is_editable,
+    //   });
+    // }
 
     const requestData = {
       file_url: file_url,
@@ -108,7 +108,7 @@ const UpdatePdfFile = async (req, res: Response) => {
       // filename: req.file.filename,
       // filetype: req.file.mimetype,
       filesize: req.file.size,
-      is_editable: false,
+      // is_editable: false,
       isupdated: true,
       updated_at: Date.now(),
     };
