@@ -25,6 +25,15 @@ const register = async (req, res) => {
       }
     }
 
+    if (!registerData.phone) {
+      throw new Error("Please enter your phone number");
+    } else {
+      const user_count = await User.find({ phone: registerData.phone });
+      if (user_count.length != 0) {
+        throw new Error("Phone number already in use");
+      }
+    }
+
     const isNonWhiteSpace = /^\S*$/;
     if (!isNonWhiteSpace.test(registerData.password)) {
       throw new Error("Password must not contain Whitespaces.");
@@ -57,10 +66,7 @@ const register = async (req, res) => {
     }
 
     if (registerData.password != registerData.confirmPassword) {
-      throw new Error("Confirm Password dosen't match");
-    }
-    if (!registerData.phone) {
-      throw new Error("Please enter a Phone Number");
+      throw new Error("Password and confirm Password dosen't match");
     }
 
     const user = new User({ ...req.body });
@@ -89,19 +95,11 @@ const register = async (req, res) => {
       },
     });
   } catch (error) {
-    if (error.code == 11000) {
-      res.status(400).json({
-        status: 400,
-        type: "error",
-        message: "Email Already exist",
-      });
-    } else {
-      res.status(400).json({
-        status: 400,
-        type: "error",
-        message: error.message,
-      });
-    }
+    res.status(400).json({
+      status: 400,
+      type: "error",
+      message: error.message,
+    });
   }
 };
 
