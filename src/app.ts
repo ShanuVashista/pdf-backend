@@ -34,5 +34,4 @@ app.listen(PORT, () => {
   return console.log(`Server is listening at http://localhost:${PORT}`);
 });
 
-
-    // "build": "tsc && copy -R src dist/src",
+// "build": "tsc && copy -R src dist/src",

@@ -1,6 +1,8 @@
 import PdfSchema from "../../db/models/pdf.model";
+import SharedFileSchema from "../../db/models/sharedFile.model";
 import { Response } from "express";
 import StatusCodes from "http-status-codes";
+import fs from "fs";
 
 export interface IPdf {
   owner: string;
@@ -71,6 +73,10 @@ const UpdatePdfFile = async (req, res: Response) => {
 
     const { fileId } = req.body;
 
+    const base_url = process.env.BASE_URL;
+
+    const file_url = base_url + "/public/pdf/" + req.file.filename;
+
     const fileData = await PdfSchema.findOne({
       _id: fileId,
       owner: user._id,
@@ -97,6 +103,7 @@ const UpdatePdfFile = async (req, res: Response) => {
     }
 
     const requestData = {
+      file_url: file_url,
       docname: req.body.docname,
       filename: req.file.filename,
       filetype: req.file.mimetype,
@@ -171,6 +178,13 @@ const DeletePdfFile = async (req, res: Response) => {
     await PdfSchema.findByIdAndUpdate(
       {
         _id: id,
+      },
+      requestData
+    );
+
+    await SharedFileSchema.findOneAndUpdate(
+      {
+        fileId: id,
       },
       requestData
     );
