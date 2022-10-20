@@ -33,3 +33,6 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   return console.log(`Server is listening at http://localhost:${PORT}`);
 });
+
+
+    // "build": "tsc && copy -R src dist/src",
