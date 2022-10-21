@@ -79,11 +79,8 @@ const UpdatePdfFile = async (req, res: Response) => {
 
     const fileData = await PdfSchema.findOne({
       _id: fileId,
-      owner: user._id,
       isdeleted: false,
     }).populate("owner");
-
-    // const file = JSON.parse(JSON.stringify(fileData));
 
     if (!fileData) {
       return res.status(400).json({
@@ -93,22 +90,10 @@ const UpdatePdfFile = async (req, res: Response) => {
       });
     }
 
-    // if (fileData.is_editable !== true) {
-    //   return res.status(400).json({
-    //     type: "error",
-    //     status: 400,
-    //     message: `${file.owner.fullname} is already edit this pdf if you want to edit now please contact with ${file.owner.fullname}`,
-    //     editable: fileData.is_editable,
-    //   });
-    // }
-
     const requestData = {
       file_url: file_url,
       docname: req.body.docname,
-      // filename: req.file.filename,
-      // filetype: req.file.mimetype,
       filesize: req.file.size,
-      // is_editable: false,
       isupdated: true,
       updated_at: Date.now(),
     };
@@ -122,7 +107,6 @@ const UpdatePdfFile = async (req, res: Response) => {
 
     const updatedData = await PdfSchema.findOne({
       _id: fileId,
-      owner: user._id,
       isdeleted: false,
     });
 
@@ -263,7 +247,6 @@ const GetPdfFileById = async (req, res: Response) => {
 
     const result = await PdfSchema.find({
       _id: fileId,
-      owner: user._id,
       isdeleted: false,
     }).populate("owner");
 
